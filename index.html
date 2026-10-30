@@ -116,7 +116,7 @@
     $('#importBtn').addEventListener('click',()=>$('#importFile').click());
     $('#clearBtn').addEventListener('click',()=>{if(!state.entries.length&&!state.ideasDone?.length){toast('There is nothing to clear yet.');return}$('#clearDialog').showModal()});
     $('#cancelClear').addEventListener('click',()=>$('#clearDialog').close());
-    $('#confirmClear').addEventListener('click',()=>{state=emptyState();persist();render();$('#clearDialog').close();toast('This browser’s journal has been cleared.')});
+    $('#confirmClear').addEventListener('click',()=>{state=emptyState();persist();$('#entryForm').reset();$('#weekDate').value=today();render();$('#clearDialog').close();toast('This browser’s journal has been cleared.')});
     $('#importFile').addEventListener('change',ev=>{const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data.entries)||data.entries.some(e=>!safeWeek(e.week)||!Number.isInteger(e.people)||e.people<1||e.people>20||!['general','food','recycling'].every(k=>Number.isFinite(e[k])&&e[k]>=0)))throw Error();state={entries:data.entries,ideasDone:Array.isArray(data.ideasDone)?data.ideasDone.filter(x=>x===0||x===1):[]};persist();render();toast('Backup restored in this browser.')}catch{toast('That file does not look like a What Leaves Home backup.')}ev.target.value=''};reader.readAsText(file)});
     render();
   </script>
