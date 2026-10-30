@@ -8,6 +8,9 @@ A private household field journal for noticing what enters waste and recycling s
 - Add household size and an optional baby-at-home context to make ideas more relevant.
 - See annual and multi-year projections from the latest recorded week, with the calculation and assumptions shown.
 - Keep a local history, choose small reduction ideas, clear local data, and export or import a JSON backup.
+- Record what made a swap difficult, then review that friction beside the weekly household pattern.
+- Use sourced, Ireland-aware field notes on cloth nappies, reusable period pads, detergent labels, and repair or reuse at home.
+- Keep personal journal notes in the browser only; the practical guides link to their source material.
 - Store all journal entries in this browser's local storage. The app has no account or backend.
 
 ## What it does not claim
