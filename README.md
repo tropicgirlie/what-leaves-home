@@ -2,6 +2,8 @@
 
 A private household field journal for noticing what enters waste and recycling streams, trying small changes, and seeing a transparent same-pace scenario over time.
 
+The project has its own doorway-and-outflow mark, drawn for What Leaves Home. It is not Luana's personal toucan-caju logo.
+
 ## What it does
 
 - Record weekly weights for general rubbish, food and garden waste, and materials placed in recycling collection.
