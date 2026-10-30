@@ -59,6 +59,7 @@
     <footer class="foot"><span>What Leaves Home · a small, private household experiment</span><span>Designed to notice what we can change, and be honest about what we cannot trace.</span></footer>
   </div>
   <dialog id="confirmDialog"><div class="dialog-body"><div class="mini-label">A clear estimate</div><h2>Same pace, same household?</h2><p id="confirmCopy"></p><p>This is a simple scenario, not a forecast. Your household, habits, collections and local systems can change.</p><div class="dialog-actions"><button id="editProjection" class="secondary" type="button">Review my entries</button><button id="saveAnyway" class="primary" type="button">Save this check-in</button></div></div></dialog>
+  <dialog id="clearDialog"><div class="dialog-body"><div class="mini-label">Private data control</div><h2>Clear this journal?</h2><p>All saved check-ins and idea marks will be removed from this browser. Export a backup first if you want to keep them.</p><div class="dialog-actions"><button id="cancelClear" class="secondary" type="button">Keep my data</button><button id="confirmClear" class="primary" type="button">Clear this browser</button></div></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
     const KEY='what-leaves-home-v1';
@@ -113,7 +114,9 @@
     document.addEventListener('change',ev=>{if(ev.target.matches('[data-idea]')){const idx=Number(ev.target.dataset.idea);state.ideasDone=state.ideasDone||[];state.ideasDone=ev.target.checked?[...new Set([...state.ideasDone,idx])]:state.ideasDone.filter(x=>x!==idx);persist()}});
     $('#exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({product:'What Leaves Home',version:1,exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='what-leaves-home-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Your backup is ready.')});
     $('#importBtn').addEventListener('click',()=>$('#importFile').click());
-    $('#clearBtn').addEventListener('click',()=>{if(!state.entries.length&&!state.ideasDone?.length){toast('There is nothing to clear yet.');return}if(!window.confirm('Clear all check-ins and saved idea marks from this browser? You can export a backup first.'))return;state=emptyState();persist();render();toast('This browser’s journal has been cleared.')});
+    $('#clearBtn').addEventListener('click',()=>{if(!state.entries.length&&!state.ideasDone?.length){toast('There is nothing to clear yet.');return}$('#clearDialog').showModal()});
+    $('#cancelClear').addEventListener('click',()=>$('#clearDialog').close());
+    $('#confirmClear').addEventListener('click',()=>{state=emptyState();persist();render();$('#clearDialog').close();toast('This browser’s journal has been cleared.')});
     $('#importFile').addEventListener('change',ev=>{const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data.entries)||data.entries.some(e=>!safeWeek(e.week)||!Number.isInteger(e.people)||e.people<1||e.people>20||!['general','food','recycling'].every(k=>Number.isFinite(e[k])&&e[k]>=0)))throw Error();state={entries:data.entries,ideasDone:Array.isArray(data.ideasDone)?data.ideasDone.filter(x=>x===0||x===1):[]};persist();render();toast('Backup restored in this browser.')}catch{toast('That file does not look like a What Leaves Home backup.')}ev.target.value=''};reader.readAsText(file)});
     render();
   </script>

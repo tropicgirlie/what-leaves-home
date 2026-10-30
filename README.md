@@ -7,7 +7,7 @@ A private household field journal for noticing what enters waste and recycling s
 - Record weekly weights for general rubbish, food and garden waste, and materials placed in recycling collection.
 - Add household size and an optional baby-at-home context to make ideas more relevant.
 - See annual and multi-year projections from the latest recorded week, with the calculation and assumptions shown.
-- Keep a local history, choose small reduction ideas, and export or import a JSON backup.
+- Keep a local history, choose small reduction ideas, clear local data, and export or import a JSON backup.
 - Store all journal entries in this browser's local storage. The app has no account or backend.
 
 ## What it does not claim
