@@ -55,11 +55,134 @@
       .history-note { padding-left: 0; }
     }
   </style>
+  <style>
+    .paper-sort { position: relative; padding: 18px 0 22px; }
+    .paper-stage { max-width: 760px; margin: 0 auto; }
+    .paper-scene { display: block; width: 100%; height: auto; max-height: 440px; }
+    .paper-scene .layer { opacity: 0; }
+    .paper-sort.played .paper-scene .layer { animation: paperPlace 720ms cubic-bezier(.22,.9,.3,1.05) both; animation-delay: var(--d, 0ms); }
+    .paper-sort.played .paper-scene .layer--item { animation-name: paperDrop; animation-duration: 820ms; }
+    .paper-sort.played .paper-scene .layer--petal { animation-name: paperFloat; animation-duration: 1800ms; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; animation-delay: 3200ms; }
+    .paper-caption { margin: 18px auto 0; max-width: 460px; text-align: center; color: var(--soft); font-size: 12px; letter-spacing: .02em; }
+    .paper-caption strong { color: var(--ink); font-weight: 600; }
+    @keyframes paperPlace {
+      0%   { opacity: 0; transform: translateY(-14px); }
+      70%  { opacity: 1; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes paperDrop {
+      0%   { opacity: 0; transform: translateY(-180px) rotate(-10deg); }
+      55%  { opacity: 1; transform: translateY(10px) rotate(4deg); }
+      75%  { transform: translateY(-4px) rotate(-1deg); }
+      100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+    }
+    @keyframes paperFloat {
+      0%   { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-4px) rotate(5deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .paper-sort.played .paper-scene .layer { animation: none; opacity: 1; transform: none; }
+    }
+    @media (max-width: 620px) {
+      .paper-sort { padding: 10px 0 14px; }
+      .paper-caption { font-size: 11px; max-width: 320px; }
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
     <header class="mast"><a class="wordmark" href="#top" aria-label="What Leaves Home, home"><img class="site-logo" src="assets/what-leaves-home-mark.svg" alt=""><span>WHAT LEAVES HOME</span></a><span class="mast-note">A household field journal · No perfect weeks required</span></header>
     <main id="top">
+      <section class="paper-sort" aria-label="Three bins being set out and sorted, built layer by layer">
+        <div class="paper-stage">
+          <svg class="paper-scene" viewBox="0 0 760 420" role="img" aria-label="A paper-cut scene: three bins — general, food, recycling — are placed on a counter, then a wrapper, a core and a flattened box drop into the matching bin.">
+            <defs>
+              <pattern id="hatchGeneral" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(42)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#8a3f2e" stroke-width=".6" opacity=".35"/>
+              </pattern>
+              <pattern id="hatchFood" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#8f6a1e" stroke-width=".6" opacity=".35"/>
+              </pattern>
+              <pattern id="hatchRecycle" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(48)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#2f4a35" stroke-width=".6" opacity=".35"/>
+              </pattern>
+              <filter id="paperLift" x="-20%" y="-20%" width="140%" height="160%">
+                <feDropShadow dx="1.2" dy="3" stdDeviation="2.2" flood-color="#2a2720" flood-opacity=".18"/>
+              </filter>
+              <filter id="paperLiftSoft" x="-20%" y="-20%" width="140%" height="160%">
+                <feDropShadow dx=".6" dy="1.4" stdDeviation="1.1" flood-color="#2a2720" flood-opacity=".14"/>
+              </filter>
+              <filter id="paperGrain" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="3"/>
+                <feColorMatrix values="0 0 0 0 .36  0 0 0 0 .32  0 0 0 0 .24  0 0 0 .07 0"/>
+                <feComposite in2="SourceGraphic" operator="in"/>
+                <feBlend in="SourceGraphic" mode="multiply"/>
+              </filter>
+            </defs>
+
+            <g class="layer layer--ground" style="--d: 0ms">
+              <rect x="20" y="332" width="720" height="34" rx="2" fill="#dcd6c3" opacity=".55" filter="url(#paperLiftSoft)"/>
+              <line x1="34" y1="334" x2="726" y2="334" stroke="#b8ad90" stroke-width=".7" opacity=".55"/>
+              <path d="M40 348 Q 240 352 400 349 T 720 350" stroke="#b8ad90" stroke-width=".5" fill="none" opacity=".4" stroke-dasharray="2 4"/>
+            </g>
+
+            <g class="layer layer--bin" style="--d: 260ms">
+              <path d="M110 220 L250 220 L240 332 L120 332 Z" fill="#b8695a" stroke="#6a2f22" stroke-width="1.1" stroke-linejoin="round" filter="url(#paperLift)"/>
+              <path d="M110 220 L250 220 L240 332 L120 332 Z" fill="url(#hatchGeneral)"/>
+              <path d="M104 212 L256 212 L252 234 L108 234 Z" fill="#a85749" stroke="#6a2f22" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M118 228 L242 228" stroke="#6a2f22" stroke-width=".8" opacity=".55"/>
+              <rect x="150" y="286" width="60" height="22" rx="1.5" fill="#f1e8d2" stroke="#6a2f22" stroke-width=".8"/>
+              <text x="180" y="302" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#5a2a1f" letter-spacing=".04em">general</text>
+            </g>
+
+            <g class="layer layer--bin" style="--d: 440ms">
+              <path d="M310 220 L450 220 L440 332 L320 332 Z" fill="#c9a258" stroke="#6b4e18" stroke-width="1.1" stroke-linejoin="round" filter="url(#paperLift)"/>
+              <path d="M310 220 L450 220 L440 332 L320 332 Z" fill="url(#hatchFood)"/>
+              <path d="M304 212 L456 212 L452 234 L308 234 Z" fill="#b89048" stroke="#6b4e18" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M318 228 L442 228" stroke="#6b4e18" stroke-width=".8" opacity=".55"/>
+              <rect x="350" y="286" width="60" height="22" rx="1.5" fill="#f1e8d2" stroke="#6b4e18" stroke-width=".8"/>
+              <text x="380" y="302" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#5a4214" letter-spacing=".04em">food</text>
+            </g>
+
+            <g class="layer layer--bin" style="--d: 620ms">
+              <path d="M510 220 L650 220 L640 332 L520 332 Z" fill="#6b8970" stroke="#2f4a35" stroke-width="1.1" stroke-linejoin="round" filter="url(#paperLift)"/>
+              <path d="M510 220 L650 220 L640 332 L520 332 Z" fill="url(#hatchRecycle)"/>
+              <path d="M504 212 L656 212 L652 234 L508 234 Z" fill="#5c7961" stroke="#2f4a35" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M518 228 L642 228" stroke="#2f4a35" stroke-width=".8" opacity=".55"/>
+              <rect x="550" y="286" width="60" height="22" rx="1.5" fill="#f1e8d2" stroke="#2f4a35" stroke-width=".8"/>
+              <text x="580" y="302" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#28402f" letter-spacing=".04em">recycling</text>
+            </g>
+
+            <g class="layer layer--item layer--item-packet" style="--d: 980ms; transform-origin: 180px 185px; transform-box: fill-box">
+              <path d="M152 166 L212 162 L216 204 L148 208 Z" fill="#d6a69a" stroke="#6a2f22" stroke-width="1" stroke-linejoin="round" filter="url(#paperLiftSoft)"/>
+              <path d="M162 176 L202 173 M162 184 L200 181 M162 192 L190 189" stroke="#f1e2cf" stroke-width="1" stroke-linecap="round"/>
+              <path d="M170 160 L170 164 M186 158 L186 163 M198 158 L198 162" stroke="#6a2f22" stroke-width=".9" stroke-linecap="round"/>
+            </g>
+
+            <g class="layer layer--item layer--item-core" style="--d: 1180ms; transform-origin: 380px 190px; transform-box: fill-box">
+              <path d="M380 156 C 380 162 384 166 390 166" stroke="#5a3a1c" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              <path d="M388 160 C 395 156 402 160 403 166 C 396 170 388 166 388 160 Z" fill="#8a9e6c" stroke="#5a3a1c" stroke-width=".8"/>
+              <path d="M364 172 C 354 180 352 198 362 210 C 370 220 384 220 388 214 C 392 220 406 220 414 210 C 424 198 422 180 412 172 C 404 166 394 170 388 174 C 382 170 372 166 364 172 Z" fill="#edd4b1" stroke="#8a6334" stroke-width="1" filter="url(#paperLiftSoft)"/>
+              <path d="M374 186 L372 202 M398 186 L400 202 M388 182 L388 206" stroke="#8a6334" stroke-width=".9" stroke-linecap="round"/>
+              <circle cx="376" cy="198" r=".9" fill="#5a3a1c"/>
+              <circle cx="396" cy="198" r=".9" fill="#5a3a1c"/>
+            </g>
+
+            <g class="layer layer--item layer--item-card" style="--d: 1380ms; transform-origin: 580px 188px; transform-box: fill-box">
+              <path d="M548 164 L612 160 L616 208 L552 212 Z" fill="#c9a66b" stroke="#6f4a1f" stroke-width="1" stroke-linejoin="round" filter="url(#paperLiftSoft)"/>
+              <path d="M548 164 L584 156 L612 160 M548 164 L584 170 M612 160 L584 170 M584 170 L584 212" stroke="#6f4a1f" stroke-width=".8" fill="none"/>
+              <path d="M558 184 L572 182 M596 182 L610 184 M558 196 L572 194 M596 194 L610 196" stroke="#6f4a1f" stroke-width=".7" stroke-linecap="round"/>
+              <path d="M568 158 L606 155" stroke="#2f4a35" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+
+            <g class="layer layer--petal" style="--d: 3200ms; transform-origin: 300px 352px; transform-box: fill-box">
+              <path d="M292 352 C 296 348 304 348 308 352 C 304 356 296 356 292 352 Z" fill="#d7c48a" opacity=".8"/>
+              <path d="M294 352 L306 352" stroke="#8a6a2a" stroke-width=".4" opacity=".5"/>
+            </g>
+          </svg>
+        </div>
+        <p class="paper-caption">Three household bins, <strong>set down one by one</strong>. What drops in is what we actually noticed leaving.</p>
+      </section>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy"><div class="kicker">Notice · choose · repeat</div><h1 id="hero-title">A little less<br><em>left behind.</em></h1><p>A practical place to notice what leaves your home, try one small change, and see what shifts. No guilt score. No claim that we can follow your rubbish after collection.</p></div>
         <figure class="hero-scene"><img src="assets/home-laundry-editorial.png" alt="Cloth nappies and reusable pads beside a laundry basket and drying rack in a sunlit home."><figcaption>Small swaps live inside real laundry days.</figcaption></figure>
@@ -173,6 +296,15 @@
     $('#confirmClear').addEventListener('click',()=>{state=emptyState();persist();$('#entryForm').reset();$('#weekDate').value=today();render();$('#clearDialog').close();toast('This browser’s journal has been cleared.')});
     $('#importFile').addEventListener('change',ev=>{const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data.entries)||data.entries.some(e=>!safeWeek(e.week)||!Number.isInteger(e.people)||e.people<1||e.people>20||!['general','food','recycling'].every(k=>Number.isFinite(e[k])&&e[k]>=0)))throw Error();state={entries:data.entries,ideasDone:Array.isArray(data.ideasDone)?data.ideasDone.filter(x=>x===0||x===1):[]};persist();render();toast('Backup restored in this browser.')}catch{toast('That file does not look like a What Leaves Home backup.')}ev.target.value=''};reader.readAsText(file)});
     render();
+    (function paperIntro(){
+      const el=document.querySelector('.paper-sort');if(!el)return;
+      const start=()=>el.classList.add('played');
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){start();return}
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){start();io.disconnect()}})},{threshold:.2});
+        io.observe(el);
+      } else { start(); }
+    })();
   </script>
 </body>
 </html>
