@@ -1,8 +1,14 @@
 # What Leaves Home
 
-A private household field journal for noticing what enters waste and recycling streams, trying small changes, and seeing a transparent same-pace scenario over time.
+A private household weigh-in for noticing what enters waste and recycling streams, trying small changes, and seeing a transparent same-pace scenario over time.
+
+Live: [tropicgirlie.github.io/what-leaves-home](https://tropicgirlie.github.io/what-leaves-home/)
 
 The project has its own doorway-and-outflow mark, drawn for What Leaves Home. It is not Luana's personal toucan-caju logo.
+
+## Look
+
+A risograph / zine aesthetic: hot pink, fluorescent orange and federal blue on warm newsprint, flat spot-colour shapes with hard offset shadows, halftone fills, Archivo Black display + Space Grotesk body + JetBrains Mono labels. The intro is a layered animated sort — three bins stamp onto the page, then a wrapper, an apple core and a flattened box drop into each, back-to-front on page load.
 
 ## What it does
 
