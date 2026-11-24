@@ -59,38 +59,42 @@
     }
   </style>
   <style>
-    .riso-sort { position: relative; padding: 24px 0 18px; background: var(--paper); margin-bottom: 8px; border-bottom: 2px solid var(--ink); }
-    .riso-stage { max-width: 820px; margin: 0 auto; }
-    .riso-scene { display: block; width: 100%; height: auto; max-height: 460px; }
-    .riso-scene .layer { opacity: 0; }
-    .riso-sort.played .riso-scene .layer { animation: risoStamp 320ms cubic-bezier(.4,.0,.2,1) both; animation-delay: var(--d, 0ms); }
-    .riso-sort.played .riso-scene .layer--item { animation-name: risoDrop; animation-duration: 480ms; animation-timing-function: cubic-bezier(.34,.1,.15,1.1); }
-    .riso-sort.played .riso-scene .layer--spark { animation-name: risoPop; animation-duration: 260ms; animation-iteration-count: 1; animation-direction: alternate; animation-fill-mode: forwards; }
-    .riso-caption-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 22px auto 0; max-width: 820px; padding: 14px 0 0; border-top: 2px solid var(--ink); flex-wrap: wrap; }
+    .riso-sort { position: relative; padding: 30px 0 22px; background: var(--paper); margin-bottom: 8px; border-bottom: 2px solid var(--ink); overflow: hidden; }
+    .riso-stage { max-width: 960px; margin: 0 auto; position: relative; padding: 0 12px; }
+    .riso-collage { display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; gap: clamp(12px, 3vw, 44px); min-height: 360px; position: relative; }
+    .riso-shelf { position: absolute; left: 0; right: 0; bottom: -4px; height: 14px; background: var(--ink); z-index: 1; }
+    .riso-shelf:after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 6px; background: var(--orange); }
+    .riso-bin { position: relative; display: block; width: 100%; height: auto; z-index: 2; transform-origin: 50% 90%; mix-blend-mode: multiply; filter: drop-shadow(6px 6px 0 var(--ink)); }
+    .riso-sort:not(.played) .riso-bin { transform: translateY(-40px) rotate(-4deg) scale(.9); opacity: 0; }
+    .riso-bin--general { aspect-ratio: 4 / 5; }
+    .riso-bin--food    { aspect-ratio: 4 / 5; }
+    .riso-bin--recycle { aspect-ratio: 4 / 5; }
+    .riso-bin img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .riso-sort.played .riso-bin { animation: risoLand 520ms cubic-bezier(.22,.9,.25,1.05) both; animation-delay: var(--d, 0ms); }
+    .riso-caption-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 28px auto 0; max-width: 960px; padding: 14px 12px 0; border-top: 2px solid var(--ink); flex-wrap: wrap; }
     .riso-kicker { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: var(--ink); color: var(--sun); padding: 6px 10px; border: 2px solid var(--ink); }
     .riso-caption { margin: 0; font-family: var(--sans); font-weight: 400; color: var(--ink); font-size: 13px; line-height: 1.55; max-width: 540px; }
     .riso-caption strong { font-family: var(--display); font-weight: normal; text-transform: uppercase; letter-spacing: -.01em; display: block; margin-bottom: 4px; font-size: 16px; }
-    @keyframes risoStamp {
-      0%   { opacity: 0; transform: translateY(6px) scale(.985); }
-      60%  { opacity: 1; transform: translateY(-1px) scale(1.01); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes risoLand {
+      0%   { opacity: 0; transform: translateY(-80px) rotate(-5deg) scale(.92); }
+      30%  { opacity: 1; }
+      55%  { opacity: 1; transform: translateY(8px) rotate(2deg) scale(1.02); }
+      78%  { transform: translateY(-3px) rotate(-1deg) scale(1); }
+      100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
     }
-    @keyframes risoDrop {
-      0%   { opacity: 0; transform: translateY(-140px) rotate(-8deg); }
-      55%  { opacity: 1; transform: translateY(6px) rotate(3deg); }
-      100% { opacity: 1; transform: translateY(0) rotate(0deg); }
-    }
-    @keyframes risoPop {
-      0%   { opacity: 0; transform: scale(.4) rotate(-20deg); }
-      60%  { opacity: 1; transform: scale(1.1) rotate(8deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
+    .riso-sort .riso-bin:nth-child(1) { z-index: 3; }
+    .riso-sort .riso-bin:nth-child(2) { z-index: 2; }
+    .riso-sort .riso-bin:nth-child(3) { z-index: 2; }
     @media (prefers-reduced-motion: reduce) {
-      .riso-sort.played .riso-scene .layer { animation: none; opacity: 1; transform: none; }
+      .riso-sort.played .riso-bin { animation: none; opacity: 1; transform: none; }
     }
     @media (max-width: 620px) {
-      .riso-sort { padding: 14px 0 12px; }
-      .riso-caption-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .riso-sort { padding: 18px 0 14px; }
+      .riso-stage { padding: 0 6px; }
+      .riso-collage { min-height: 200px; gap: 4px; }
+      .riso-bin { filter: drop-shadow(3px 3px 0 var(--ink)); min-width: 0; }
+      .riso-bin img { padding-right: 4px; }
+      .riso-caption-row { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 20px; padding: 14px 16px 0; }
       .riso-caption { font-size: 12px; }
       .riso-caption strong { font-size: 14px; }
     }
@@ -228,95 +232,24 @@
   <div class="wrap">
     <header class="mast"><a class="wordmark" href="#top" aria-label="What Leaves Home, home"><img class="site-logo" src="assets/what-leaves-home-mark.svg" alt=""><span>WHAT LEAVES HOME</span></a><span class="mast-note">Household weigh-in · No perfect weeks</span></header>
     <main id="top">
-      <section class="riso-sort" aria-label="Three bins being set out and sorted, risograph-style">
+      <section class="riso-sort" aria-label="Three bins — general, food, recycling — set out as a paper collage">
         <div class="riso-stage">
-          <svg class="riso-scene" viewBox="0 0 760 420" role="img" aria-label="A risograph-style scene: three bins — general, food, recycling — are stamped onto the page, then a crisp packet, an apple core and a flattened box drop into the matching bin.">
-            <defs>
-              <pattern id="dotsPink" width="7" height="7" patternUnits="userSpaceOnUse">
-                <circle cx="3.5" cy="3.5" r="1.3" fill="#fff" opacity=".4"/>
-              </pattern>
-              <pattern id="dotsOrange" width="7" height="7" patternUnits="userSpaceOnUse">
-                <circle cx="3.5" cy="3.5" r="1.3" fill="#15130f" opacity=".3"/>
-              </pattern>
-              <pattern id="dotsBlue" width="7" height="7" patternUnits="userSpaceOnUse">
-                <circle cx="3.5" cy="3.5" r="1.3" fill="#fff" opacity=".4"/>
-              </pattern>
-              <pattern id="dotsBig" width="12" height="12" patternUnits="userSpaceOnUse">
-                <circle cx="6" cy="6" r="2" fill="#15130f"/>
-              </pattern>
-            </defs>
-
-            <g class="layer layer--shelf" style="--d: 0ms">
-              <rect x="20" y="330" width="720" height="8" fill="#15130f"/>
-              <rect x="20" y="338" width="720" height="6" fill="#ec3e8a"/>
-            </g>
-
-            <g class="layer layer--bin" style="--d: 220ms">
-              <path d="M124 226 L244 226 L238 330 L130 330 Z" fill="#15130f" transform="translate(6 6)"/>
-              <path d="M124 226 L244 226 L238 330 L130 330 Z" fill="#ec3e8a" stroke="#15130f" stroke-width="3" stroke-linejoin="miter"/>
-              <path d="M124 226 L244 226 L238 330 L130 330 Z" fill="url(#dotsPink)"/>
-              <rect x="116" y="216" width="136" height="16" fill="#15130f"/>
-              <rect x="116" y="216" width="136" height="16" fill="none" stroke="#15130f" stroke-width="3"/>
-              <rect x="150" y="280" width="68" height="24" fill="#fbf7e9" stroke="#15130f" stroke-width="2.4"/>
-              <text x="184" y="297" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#15130f" letter-spacing=".08em">GENERAL</text>
-            </g>
-
-            <g class="layer layer--bin" style="--d: 420ms">
-              <path d="M312 226 L444 226 L438 330 L318 330 Z" fill="#15130f" transform="translate(6 6)"/>
-              <path d="M312 226 L444 226 L438 330 L318 330 Z" fill="#ff5a1f" stroke="#15130f" stroke-width="3" stroke-linejoin="miter"/>
-              <path d="M312 226 L444 226 L438 330 L318 330 Z" fill="url(#dotsOrange)"/>
-              <rect x="304" y="216" width="148" height="16" fill="#15130f"/>
-              <rect x="304" y="216" width="148" height="16" fill="none" stroke="#15130f" stroke-width="3"/>
-              <rect x="344" y="280" width="68" height="24" fill="#fbf7e9" stroke="#15130f" stroke-width="2.4"/>
-              <text x="378" y="297" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#15130f" letter-spacing=".08em">FOOD</text>
-            </g>
-
-            <g class="layer layer--bin" style="--d: 620ms">
-              <path d="M512 226 L644 226 L638 330 L518 330 Z" fill="#15130f" transform="translate(6 6)"/>
-              <path d="M512 226 L644 226 L638 330 L518 330 Z" fill="#2639a8" stroke="#15130f" stroke-width="3" stroke-linejoin="miter"/>
-              <path d="M512 226 L644 226 L638 330 L518 330 Z" fill="url(#dotsBlue)"/>
-              <rect x="504" y="216" width="148" height="16" fill="#15130f"/>
-              <rect x="504" y="216" width="148" height="16" fill="none" stroke="#15130f" stroke-width="3"/>
-              <rect x="544" y="280" width="68" height="24" fill="#fbf7e9" stroke="#15130f" stroke-width="2.4"/>
-              <text x="578" y="297" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#15130f" letter-spacing=".08em">RECYCLE</text>
-            </g>
-
-            <g class="layer layer--item layer--item-packet" style="--d: 980ms; transform-origin: 184px 184px; transform-box: fill-box">
-              <path d="M156 166 L212 160 L216 204 L152 210 Z" fill="#15130f" transform="translate(3 3)"/>
-              <path d="M156 166 L212 160 L216 204 L152 210 Z" fill="#ff5a1f" stroke="#15130f" stroke-width="2.4" stroke-linejoin="miter"/>
-              <path d="M164 176 L204 170 M164 184 L200 179 M164 192 L196 188" stroke="#15130f" stroke-width="1.6" stroke-linecap="square"/>
-              <path d="M170 158 L170 164 M186 156 L186 163 M198 156 L198 162" stroke="#15130f" stroke-width="2" stroke-linecap="square"/>
-            </g>
-
-            <g class="layer layer--item layer--item-core" style="--d: 1180ms; transform-origin: 378px 192px; transform-box: fill-box">
-              <path d="M374 156 L380 156 L380 170 L374 170 Z" fill="#15130f" transform="translate(3 3)"/>
-              <path d="M378 156 C 378 162 382 166 388 166" stroke="#15130f" stroke-width="3" stroke-linecap="square" fill="none"/>
-              <path d="M386 160 L402 158 L402 170 L388 172 Z" fill="#2639a8" stroke="#15130f" stroke-width="2"/>
-              <path d="M360 170 L400 170 L406 220 L360 220 Z" fill="#15130f" transform="translate(3 3)"/>
-              <path d="M360 170 C 352 180 350 198 358 210 C 366 220 382 220 384 212 C 386 220 402 220 410 210 C 418 198 416 180 408 170 L 360 170 Z" fill="#ec3e8a" stroke="#15130f" stroke-width="2.6" stroke-linejoin="miter"/>
-              <circle cx="372" cy="196" r="1.8" fill="#15130f"/>
-              <circle cx="396" cy="196" r="1.8" fill="#15130f"/>
-              <path d="M382 184 L382 206" stroke="#15130f" stroke-width="2" stroke-linecap="square"/>
-            </g>
-
-            <g class="layer layer--item layer--item-card" style="--d: 1380ms; transform-origin: 580px 186px; transform-box: fill-box">
-              <path d="M548 162 L612 158 L616 206 L552 212 Z" fill="#15130f" transform="translate(3 3)"/>
-              <path d="M548 162 L612 158 L616 206 L552 212 Z" fill="#ff5a1f" stroke="#15130f" stroke-width="2.4" stroke-linejoin="miter"/>
-              <path d="M548 162 L584 168 L612 158" stroke="#15130f" stroke-width="2.2" fill="none"/>
-              <path d="M584 168 L584 212" stroke="#15130f" stroke-width="2" fill="none"/>
-              <path d="M558 180 L578 178 M588 178 L608 180 M558 194 L578 192 M588 192 L608 194" stroke="#15130f" stroke-width="1.6" stroke-linecap="square"/>
-              <path d="M566 156 L606 152" stroke="#2639a8" stroke-width="4" stroke-linecap="square"/>
-            </g>
-
-            <g class="layer layer--spark" style="--d: 1800ms; transform-origin: 380px 160px; transform-box: fill-box">
-              <path d="M374 140 L384 160 L404 150 L390 170 L410 176 L388 182 L394 200 L380 184 L366 198 L372 180 L352 178 L372 170 L358 154 Z" fill="#ff5a1f" stroke="#15130f" stroke-width="2"/>
-              <circle cx="380" cy="170" r="8" fill="#15130f"/>
-            </g>
-          </svg>
+          <div class="riso-collage">
+            <figure class="riso-bin riso-bin--general" style="--d: 180ms">
+              <img src="assets/bin-general.webp" alt="A papier-mâché General rubbish bin, hot pink with black halftone dots and a hand-cut cream label.">
+            </figure>
+            <figure class="riso-bin riso-bin--food" style="--d: 420ms">
+              <img src="assets/bin-food.webp" alt="A papier-mâché Food waste bin, fluorescent orange with black ink wash and a torn FOOD label.">
+            </figure>
+            <figure class="riso-bin riso-bin--recycle" style="--d: 660ms">
+              <img src="assets/bin-recycle.webp" alt="A risograph-style Recycle bin, federal blue with white polka dots, hot pink overprint shadow and a cream RECYCLE label.">
+            </figure>
+            <div class="riso-shelf" aria-hidden="true"></div>
+          </div>
         </div>
         <div class="riso-caption-row">
           <span class="riso-kicker">Three bins · Three choices</span>
-          <p class="riso-caption"><strong>What drops in is what we actually noticed leaving.</strong><br>After collection, where it ends up is somebody else's story.</p>
+          <p class="riso-caption"><strong>What drops in is what we actually noticed leaving.</strong>After collection, where it ends up is somebody else's story.</p>
         </div>
       </section>
       <section class="hero" aria-labelledby="hero-title">
@@ -435,11 +368,7 @@
     (function risoIntro(){
       const el=document.querySelector('.riso-sort');if(!el)return;
       const start=()=>el.classList.add('played');
-      if(matchMedia('(prefers-reduced-motion: reduce)').matches){start();return}
-      if('IntersectionObserver' in window){
-        const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){start();io.disconnect()}})},{threshold:.2});
-        io.observe(el);
-      } else { start(); }
+      requestAnimationFrame(()=>requestAnimationFrame(start));
     })();
   </script>
 </body>
