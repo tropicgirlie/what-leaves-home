@@ -8,7 +8,7 @@ The project has its own doorway-and-outflow mark, drawn for What Leaves Home. It
 
 ## Look
 
-A risograph / zine aesthetic: hot pink, fluorescent orange and federal blue on warm newsprint, flat spot-colour shapes with hard offset shadows, halftone fills, Archivo Black display + Space Grotesk body + JetBrains Mono labels. The intro is a layered animated sort — three bins stamp onto the page, then a wrapper, an apple core and a flattened box drop into each, back-to-front on page load.
+A risograph / zine aesthetic: hot pink, fluorescent orange and federal blue on warm newsprint, flat spot-colour shapes with hard offset shadows, halftone fills, Archivo Black display + Space Grotesk body + JetBrains Mono labels. The interactive header follows a wearable T-shirt from the household bins to a clothes bank, a sorting table and a possible second wearer. Visitors can step through the illustrated route, replay it or find a textile drop-off in Ireland.
 
 ## What it does
 
