@@ -151,8 +151,8 @@
     .history-note strong { color: var(--sun); }
     .history-empty { color: var(--paper); font-family: var(--mono); }
     .section-caption { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .02em; color: var(--ink); }
-    .foot { border-top: 2px solid var(--ink); color: var(--ink); font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .02em; }
-    .foot a { color: var(--green); font-weight: 700; }
+    .foot { flex-wrap: wrap; gap: 12px 24px; border-top: 2px solid var(--ink); color: var(--ink); font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .02em; }
+    .foot a { padding: 6px 0; color: var(--green); font-size: 13px; font-weight: 700; text-underline-offset: 3px; }
     .toast { background: var(--ink); color: var(--sun); border: 2px solid var(--sun); border-radius: 0; font-family: var(--mono); font-weight: 700; text-transform: uppercase; box-shadow: 4px 4px 0 var(--sun); }
     dialog { border: 2px solid var(--ink); border-radius: 0; box-shadow: 8px 8px 0 var(--ink); background: var(--paper2); }
     dialog .mini-label { background: var(--ink); color: var(--sun); }
@@ -291,7 +291,11 @@
         <aside class="field-guide-note"><h3>When the “better” option makes life harder</h3><p>Write down the friction in your weekly check-in. No drying space? Childcare bag too full? Extra detergent costs? A plan that fails under a normal busy week needs a different design. Reuse what you can, use a disposable backup when it helps, and leave the rest for another time.</p></aside>
       </section>
     </main>
-    <footer class="foot"><span>What Leaves Home · a small, private household experiment</span><span>Designed to notice what we can change, and be honest about what we cannot trace.</span></footer>
+    <footer class="foot">
+      <span>What Leaves Home · a small, private household experiment</span>
+      <span>Designed to notice what we can change, and be honest about what we cannot trace.</span>
+      <a href="https://buymeacoffee.com/ltuxdub" target="_blank" rel="noopener noreferrer">Buy me a coffee <span aria-hidden="true">↗</span></a>
+    </footer>
   </div>
   <dialog id="confirmDialog"><div class="dialog-body"><div class="mini-label">Estimate</div><h2>Same pace, same household?</h2><p id="confirmCopy"></p><p>This is a simple scenario, not a forecast. Your household, habits, collections and local systems can change.</p><div class="dialog-actions"><button id="editProjection" class="secondary" type="button">Review my entries</button><button id="saveAnyway" class="primary" type="button">Save this check-in</button></div></div></dialog>
   <dialog id="clearDialog"><div class="dialog-body"><div class="mini-label">Clear data</div><h2>Clear this journal?</h2><p>All saved check-ins and idea marks will be removed from this browser. Export a backup first if you want to keep them.</p><div class="dialog-actions"><button id="cancelClear" class="secondary" type="button">Keep my data</button><button id="confirmClear" class="primary" type="button">Clear this browser</button></div></div></dialog>
